@@ -15,6 +15,7 @@ class Pets{
     void DeletePet();
     void UpdatePet();
     void ViewPet();
+    int getidPets();
 };
 
 #endif

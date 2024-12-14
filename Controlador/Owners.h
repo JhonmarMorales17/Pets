@@ -12,10 +12,10 @@ class Owners{
 
     public:
     void AddOwner();
-    void EliminateOwner();
+    void DeleteOwner();
     void UpdateOwner();
     void ViewOwner();
-    int getid();
+    int getidOwners();
 };
 
 #endif
