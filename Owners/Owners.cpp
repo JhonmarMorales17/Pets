@@ -31,3 +31,7 @@ void Owners::AddOwner(){
     OwnersFile2.close();
     cout<<"Cliente agregado con exito"<<endl;
 }
+
+int Owners::getid(){
+    return id;
+}

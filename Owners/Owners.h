@@ -15,6 +15,7 @@ class Owners{
     void EliminateOwner();
     void UpdateOwner();
     void ViewOwner();
+    int getid();
 };
 
 #endif
