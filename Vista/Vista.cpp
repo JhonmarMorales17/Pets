@@ -28,10 +28,10 @@ void Vista::Menu(){
                 c.DeleteOwner();
                 break;
             case 3:
-                //c.UpdateOwner();
+                c.UpdateOwner();
                 break;
             case 4:
-                //c.ViewOwner();
+                c.ViewOwner();
                 break;
             case 5:
                 p.AddPet();

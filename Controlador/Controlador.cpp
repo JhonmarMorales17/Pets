@@ -80,6 +80,7 @@ void Owners::UpdateOwner(){
             cout << "Apellido: ";
             cin>>o.LastName;
             cout << "Correo: ";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             getline(cin, o.Email);
             cout << "Id de la mascota que adopto: ";
             cin>>o.pet_id;
@@ -92,6 +93,44 @@ void Owners::UpdateOwner(){
             cout<<"Persona actualizada de forma exitosa"<<endl;
         }
     }
+}
+
+void Owners::ViewOwner(){
+    Owners o;
+    cout<<"Ingrese el id de la persona que desea consultar: ";
+    cin>>o.id;
+    string line;
+    ifstream OwnersFile("./Data/Owners.csv", ios::in);
+    while(getline(OwnersFile,line)){
+        size_t pos = 0;
+        size_t next_pos = line.find(',');
+
+        int actual_id = atoi(line.substr(0,line.find(',')).c_str());
+        if(actual_id==o.id){
+            pos = next_pos + 1;
+
+            next_pos = line.find(',', pos);
+            o.Name = line.substr(pos, next_pos - pos);
+            pos = next_pos + 1;
+
+            next_pos = line.find(',', pos);
+            o.LastName = line.substr(pos, next_pos - pos);
+            pos = next_pos + 1;
+
+            next_pos = line.find(',', pos);
+            o.Email = line.substr(pos, next_pos - pos);
+            pos = next_pos + 1;
+
+            o.pet_id = stoi(line.substr(pos));
+
+            cout << "\nID: " << o.id << endl;
+            cout << "Nombre: " << o.Name << endl;
+            cout << "Apellido: " << o.LastName << endl;
+            cout << "Correo: " << o.Email << endl;
+            cout << "Id de la macota que adopto: " << o.pet_id << endl;
+        }
+    }
+    OwnersFile.close();
 }
 
 int Owners::getidOwners(){
