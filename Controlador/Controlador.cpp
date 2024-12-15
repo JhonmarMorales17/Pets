@@ -45,29 +45,7 @@ void Owners::DeleteOwner(){
     cin>>o.id;
     ofstream TemporalOwners("./Data/TempOwners.csv",ios::out);
     ifstream ArchivoOwners("./Data/Owners.csv", ios::in);
-
-    ofstream TemporalPets("./Data/TempPets.csv",ios::out);
-    ifstream ArchivoPets("./Data/Pets.csv", ios::in);
-
-        
-    while(getline(ArchivoPets, line2)){
-    size_t pos = 0;
-    int comma_count = 0;
-    // Encontrar la posición de la quinta coma
-    while ((pos = line2.find(',', pos)) != std::string::npos && comma_count < 5) {
-        pos++;
-        comma_count++;
-    }
-    // Si se encontraron al menos cinco comas
-    if (comma_count == 5) {
-        std::string sub_str = line2.substr(pos);
-        int actual_id2 = atoi(sub_str.c_str());
-        if(actual_id2 != p.getidPets()){
-            TemporalPets << line2 << endl;
-        }
-    }
-}
-
+      
     while(getline(ArchivoOwners,line)){
         int actual_id = atoi(line.substr(0,line.find(',')).c_str());
         if(actual_id!= o.id){
@@ -80,21 +58,45 @@ void Owners::DeleteOwner(){
 
     remove("./Data/Owners.csv");
     rename("./Data/TempOwners.csv","./Data/Owners.csv");
-
-    remove("./Data/Pets.csv");
-    rename("./Data/TempPets.csv","./Data/Pets.csv");
-
     cout<<"Cliente eliminado con exito"<<endl;
+}
+
+void Owners::UpdateOwner(){
+    Owners o;
+    string line;
+    cout<<"Ingrese el id del dueno que quiere actualizar:"<<endl;
+    cin>>o.id;
+    ifstream OwnersFile("./Data/Owners.csv", ios::in);
+    ofstream OwnersTemp("./Data/TempOwners.csv",ios::out);
+    while(getline(OwnersFile,line)){
+        int actual_id = atoi(line.substr(0,line.find(',')).c_str());
+        if(actual_id!=o.id){
+            OwnersTemp<<line<<endl;
+        }
+        else{
+            cout << "Nombre: ";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            getline(cin, o.Name);
+            cout << "Apellido: ";
+            cin>>o.LastName;
+            cout << "Correo: ";
+            getline(cin, o.Email);
+            cout << "Id de la mascota que adopto: ";
+            cin>>o.pet_id;
+            OwnersTemp << o.id << "," << o.Name << "," << o.LastName << "," << o.Email << "," << o.pet_id<<endl;
+            OwnersTemp.close();
+            OwnersFile.close();
+
+            remove("./Data/Owners.csv");
+            rename("./Data/TempOwners.csv","./Data/Owners.csv");
+            cout<<"Persona actualizada de forma exitosa"<<endl;
+        }
+    }
 }
 
 int Owners::getidOwners(){
     return id;
 }
-
-
-
-
-
 
 void Pets::AddPet(){
     ifstream ArchivoMascotas("./Data/Pets.csv");
@@ -137,16 +139,6 @@ void Pets::DeletePet(){
     ofstream TemporalMascotas("./Data/TempPets.csv",ios::out);
     ifstream ArchivoMascotas("./Data/Pets.csv", ios::in);
 
-    ofstream TemporalOwners("./Data/TempOwners.csv",ios::out);
-    ifstream ArchivoOwners("./Data/Owners.csv", ios::in);
-
-    while(getline(ArchivoOwners,line2)){
-        int actual_id2 = atoi(line.substr(0,line.find(',')).c_str());
-        if(actual_id2!= o.getidOwners()){
-            TemporalOwners<<line<<endl;
-        }
-    }
-
     while(getline(ArchivoMascotas,line)){
         int actual_id = atoi(line.substr(0,line.find(',')).c_str());
         if(actual_id!= p.id){
@@ -159,9 +151,6 @@ void Pets::DeletePet(){
 
     remove("./Data/Pets.csv");
     rename("./Data/TempPets.csv","./Data/Pets.csv");
-
-    remove("./Data/Owners.csv");
-    rename("./Data/TempOwners.csv","./Data/Owners.csv");
 
     cout<<"Mascota eliminada con exito"<<endl;
 }
