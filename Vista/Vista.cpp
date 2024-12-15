@@ -9,7 +9,7 @@ void Vista::Menu(){
     Pets p;
     int opcion;
     do{
-        cout<<"1. Agregar Cliente"<<endl;
+        cout<<"\n1. Agregar Cliente"<<endl;
         cout<<"2. Eliminar Cliente"<<endl;
         cout<<"3. Actualizar Cliente"<<endl;
         cout<<"4. Consultar Cliente"<<endl;
@@ -40,10 +40,10 @@ void Vista::Menu(){
                 p.DeletePet();
                 break;
             case 7:
-                //p.UpdatePet();
+                p.UpdatePet();
                 break;
             case 8:
-                //p.ViewPet();
+                p.ViewPet();
                 break;
             case 9:
                 cout<<"Gracias por usar el programa"<<endl;
